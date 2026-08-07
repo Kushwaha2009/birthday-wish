@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy 18th Birthday My Queen | Puspa ❤️</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- External CDNs -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* =========================================================
+       1. LUXURY PALETTE & NO-SCROLL GLOBAL STYLES
+       ========================================================= */
+    :root {
+      --cream-white: #FFF9F5;
+      --blush-pink: #FADADD;
+      --rose-pink: #F8C8DC;
+      --soft-pink: #FFB6C1;
+      --hot-pink: #D81B60;
+      --deep-magenta: #880E4F;
+      --champagne-gold: #D4AF37;
+      --rose-gold: #B76E79;
+      --glass-bg: rgba(255, 255, 255, 0.78);
+      --glass-border: rgba(255, 182, 193, 0.45);
+      --text-dark: #4A142F;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Disable scrolling on entire body */
+    html, body {
+      width: 100%;
+      height: 100vh;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #FFF0F5;
+      color: var(--text-dark);
+      overflow: hidden; /* Scroll system completely disabled */
+      position: relative;
+    }
+
+    /* Glow Cursor Trail Canvas */
+    #cursor-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* =========================================================
+       2. CINEMATIC INTRO LOADER
+       ========================================================= */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, #FFF5F7 0%, #FADADD 100%);
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
+    }
+
+    .loader-content { text-align: center; padding: 30px; }
+
+    .loader-logo {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      color: var(--deep-magenta);
+      text-shadow: 0 0 20px rgba(216, 27, 96, 0.2);
+      margin-bottom: 20px;
+      animation: pulseGlow 2s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(0.98); opacity: 0.8; }
+      100% { transform: scale(1.03); opacity: 1; text-shadow: 0 0 30px rgba(212, 175, 55, 0.6); }
+    }
+
+    .loader-bar-bg {
+      width: 240px; height: 6px;
+      background: rgba(216, 27, 96, 0.15);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 20px auto;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .loader-bar-fill {
+      width: 0%; height: 100%;
+      background: linear-gradient(90deg, #E91E63, #D4AF37);
+      border-radius: 10px;
+      transition: width 0.3s ease;
+    }
+
+    .loader-quote {
+      font-size: 0.95rem; color: var(--rose-gold);
+      font-style: italic; height: 24px; transition: opacity 0.4s ease;
+    }
+
+    .btn-enter {
+      margin-top: 25px;
+      padding: 14px 36px;
+      background: linear-gradient(135deg, #E91E63, #D81B60);
+      color: #FFF; border: none; border-radius: 30px;
+      font-size: 1rem; font-weight: 700; letter-spacing: 1px;
+      cursor: pointer; box-shadow: 0 10px 25px rgba(216, 27, 96, 0.35);
+      opacity: 0; pointer-events: none; transform: translateY(15px);
+      transition: all 0.5s ease;
+    }
+
+    .btn-enter.ready { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .btn-enter:hover { transform: scale(1.05); box-shadow: 0 15px 35px rgba(216, 27, 96, 0.5); }
+
+    /* =========================================================
+       3. BACKGROUND MESH & PARTICLES
+       ========================================================= */
+    .bg-mesh-container { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+    .bg-mesh {
+      position: absolute; width: 160%; height: 160%; top: -30%; left: -30%;
+      background: radial-gradient(circle at 20% 20%, rgba(255, 192, 203, 0.6) 0%, transparent 45%),
+                  radial-gradient(circle at 80% 80%, rgba(255, 228, 225, 0.7) 0%, transparent 45%),
+                  radial-gradient(circle at 50% 50%, rgba(255, 245, 247, 0.8) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(248, 200, 220, 0.5) 0%, transparent 40%);
+      filter: blur(80px); animation: meshFloat 22s ease-in-out infinite alternate;
+    }
+    @keyframes meshFloat { 0% { transform: rotate(0deg) scale(1); } 100% { transform: rotate(20deg) scale(1.12); } }
+
+    .floating-particles-layer { position: fixed; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
+    .floating-item {
+      position: absolute; bottom: -60px; animation: floatUpAnim linear infinite; opacity: 0;
+      filter: drop-shadow(0 4px 8px rgba(216,27,96,0.15));
+    }
+    @keyframes floatUpAnim {
+      0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
+      15% { opacity: 0.85; } 85% { opacity: 0.85; }
+      100% { transform: translateY(-115vh) rotate(360deg) scale(1.3); opacity: 0; }
+    }
+
+    /* =========================================================
+       4. FLOATING MUSIC WIDGET
+       ========================================================= */
+    .music-widget {
+      position: fixed; top: 20px; right: 20px; z-index: 1000;
+      background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px); border: 1px solid var(--glass-border);
+      padding: 8px 16px; border-radius: 40px; display: flex; align-items: center; gap: 10px;
+      box-shadow: 0 10px 30px rgba(216, 27, 96, 0.15); cursor: pointer; transition: all 0.3s ease;
+    }
+    .music-widget:hover { transform: scale(1.03); }
+    .music-disc {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: linear-gradient(135deg, #D81B60, #D4AF37);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 0.75rem; animation: spinDisc 4s linear infinite; animation-play-state: paused;
+    }
+    .music-widget.playing .music-disc { animation-play-state: running; }
+    @keyframes spinDisc { 100% { transform: rotate(360deg); } }
+    .eq-bars { display: flex; align-items: flex-end; height: 12px; gap: 2px; }
+    .eq-bar { width: 3px; height: 100%; background: var(--hot-pink); border-radius: 3px; transform: scaleY(0.3); transform-origin: bottom; }
+    .music-widget.playing .eq-bar:nth-child(1) { animation: eqAnim 0.6s infinite alternate; }
+    .music-widget.playing .eq-bar:nth-child(2) { animation: eqAnim 0.8s 0.2s infinite alternate; }
+    .music-widget.playing .eq-bar:nth-child(3) { animation: eqAnim 0.5s 0.4s infinite alternate; }
+    @keyframes eqAnim { 0% { transform: scaleY(0.2); } 100% { transform: scaleY(1); } }
+    .music-info { display: flex; flex-direction: column; }
+    .music-title { font-size: 0.75rem; font-weight: 700; color: var(--deep-magenta); }
+    .music-status { font-size: 0.62rem; color: var(--rose-gold); font-weight: 500; }
+
+    /* =========================================================
+       5. MAIN APPLICATION LAYOUT (PAGE CONTAINER)
+       ========================================================= */
+    .app-wrapper {
+      position: relative; z-index: 10;
+      max-width: 950px; height: 100vh; margin: 0 auto;
+      padding: 15px 20px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+
+    header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 24px; background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+      border-radius: 30px; border: 1px solid var(--glass-border);
+      box-shadow: 0 10px 30px rgba(216, 27, 96, 0.08); flex-shrink: 0;
+    }
+
+    .brand-logo {
+      font-family: 'Great Vibes', cursive; font-size: 1.8rem;
+      color: var(--deep-magenta); font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .nav-tabs {
+      display: flex; gap: 6px; background: rgba(250, 218, 221, 0.4);
+      padding: 4px; border-radius: 25px; border: 1px solid rgba(255, 182, 193, 0.4);
+    }
+
+    .tab-btn {
+      padding: 6px 14px; border: none; background: transparent;
+      border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+      color: var(--deep-magenta); cursor: pointer; transition: all 0.3s ease;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #E91E63, #D81B60);
+      color: white; box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
+    }
+
+    /* SLIDE VIEW CONTAINER (Pages logic) */
+    .view-stage {
+      flex: 1;
+      position: relative;
+      margin: 15px 0;
+      overflow: hidden;
+    }
+
+    .page-slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.94) translateY(20px);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto; /* Internal card scroll if content is long on small screens */
+      padding: 10px 5px;
+    }
+
+    .page-slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1) translateY(0);
+    }
+
+    /* Remove scrollbars from internal cards */
+    .page-slide::-webkit-scrollbar { display: none; }
+
+    /* =========================================================
+       6. PAGE 1: HERO & COUNTDOWN
+       ========================================================= */
+    .hero-card {
+      background: var(--glass-bg); backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px); border-radius: 30px;
+      padding: 30px 20px; border: 1px solid var(--glass-border);
+      box-shadow: 0 20px 40px rgba(216, 27, 96, 0.12);
+      text-align: center; width: 100%;
+    }
+
+    .milestone-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(216, 27, 96, 0.08); border: 1px solid rgba(216, 27, 96, 0.25);
+      padding: 6px 18px; border-radius: 40px; font-size: 0.78rem; font-weight: 700;
+      color: var(--hot-pink); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800; color: var(--deep-magenta); line-height: 1.1; margin-bottom: 10px;
+    }
+
+    .hero-title span {
+      display: block; font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.8rem, 7vw, 4.8rem);
+      background: linear-gradient(45deg, #E91E63, #D4AF37, #FF4081);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem; color: var(--rose-gold); max-width: 550px;
+      margin: 0 auto 25px auto; font-weight: 500; line-height: 1.5;
+    }
+
+    .timer-boxes { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+    .time-card {
+      background: rgba(255, 255, 255, 0.88); border: 1px solid rgba(255, 182, 193, 0.5);
+      border-radius: 16px; padding: 12px 16px; min-width: 75px;
+    }
+    .time-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 800; color: var(--hot-pink); display: block; line-height: 1; }
+    .time-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--rose-gold); margin-top: 4px; font-weight: 700; }
+
+    .relation-counter {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(250,218,221,0.6));
+      padding: 10px 22px; border-radius: 30px; border: 1px solid rgba(216,27,96,0.2);
+      color: var(--deep-magenta); font-weight: 700; font-size: 0.88rem;
+    }
+    .relation-counter i { color: var(--hot-pink); animation: heartBeat 1.2s infinite; }
+    @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+
+    /* =========================================================
+       7. PAGE 2: GALLERY (Provided Photos)
+       ========================================================= */
+    .photo-spotlight-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px; width: 100%;
+    }
+
+    .spotlight-card {
+      background: var(--glass-bg); backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px); border-radius: 26px; padding: 14px;
+      border: 1px solid var(--glass-border); box-shadow: 0 15px 35px rgba(216, 27, 96, 0.1);
+      text-align: center;
+    }
+
+    .spotlight-img-wrapper { width: 100%; height: 320px; border-radius: 18px; overflow: hidden; }
+    .spotlight-img-wrapper img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 0.6s ease; }
+    .spotlight-card:hover .spotlight-img-wrapper img { transform: scale(1.06); }
+    .spotlight-tag { margin-top: 12px; font-family: 'Dancing Script', cursive; font-size: 1.35rem; color: var(--deep-magenta); font-weight: 700; }
+
+    /* =========================================================
+       8. PAGE 3: LOVE LETTER
+       ========================================================= */
+    .section-card {
+      background: var(--glass-bg); backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px); border-radius: 30px; padding: 25px;
+      border: 1px solid var(--glass-border); box-shadow: 0 15px 35px rgba(216, 27, 96, 0.1);
+      width: 100%;
+    }
+
+    .letter-paper {
+      background: #FFFDF9; border-radius: 20px; padding: 25px;
+      border: 1px solid rgba(212, 175, 55, 0.3); box-shadow: inset 0 0 25px rgba(250, 218, 221, 0.4);
+    }
+    .letter-header { font-family: 'Great Vibes', cursive; font-size: 2.4rem; color: var(--deep-magenta); margin-bottom: 12px; }
+    .letter-body { font-size: 0.98rem; line-height: 1.75; color: #333; min-height: 150px; white-space: pre-wrap; }
+    .typing-cursor { display: inline-block; width: 2px; height: 1.2em; background: var(--hot-pink); vertical-align: middle; animation: blink 0.8s infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .letter-signature { text-align: right; font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--hot-pink); margin-top: 15px; }
+
+    /* =========================================================
+       9. PAGE 4: 100 REASONS GRID
+       ========================================================= */
+    .reasons-header { text-align: center; margin-bottom: 15px; }
+    .reasons-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px; max-height: 360px; overflow-y: auto; padding-right: 5px;
+    }
+    .reason-card {
+      background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(255, 182, 193, 0.4);
+      border-radius: 16px; padding: 14px; text-align: center; cursor: pointer; transition: all 0.3s ease;
+    }
+    .reason-card:hover { transform: translateY(-2px); background: #FFF; border-color: var(--hot-pink); }
+    .reason-num { font-size: 0.7rem; font-weight: 800; color: var(--champagne-gold); margin-bottom: 4px; }
+    .reason-text { font-size: 0.82rem; color: var(--deep-magenta); font-weight: 600; }
+
+    /* =========================================================
+       10. PAGE 5: SURPRISE GIFT
+       ========================================================= */
+    .gift-section { text-align: center; padding: 20px; }
+    .gift-box-wrapper { position: relative; width: 120px; height: 120px; margin: 0 auto 20px auto; cursor: pointer; }
+    .gift-box {
+      width: 100%; height: 100%; background: linear-gradient(135deg, #E91E63, #D81B60);
+      border-radius: 20px; box-shadow: 0 15px 35px rgba(216, 27, 96, 0.35);
+      display: flex; align-items: center; justify-content: center; color: #FFF; font-size: 3rem;
+      transition: transform 0.4s ease;
+    }
+    .gift-box-wrapper:hover .gift-box { transform: scale(1.08) rotate(3deg); }
+
+    .btn-action-main {
+      padding: 14px 36px; background: linear-gradient(135deg, #E91E63, #D81B60);
+      color: white; border: none; font-size: 0.95rem; font-weight: 800; border-radius: 30px;
+      cursor: pointer; box-shadow: 0 10px 25px rgba(216, 27, 96, 0.35); transition: all 0.3s ease;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-action-main:hover { transform: scale(1.04); }
+
+    /* Modal Overlay */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(74, 20, 47, 0.6);
+      backdrop-filter: blur(12px); z-index: 10001;
+      display: flex; align-items: center; justify-content: center; padding: 20px;
+      opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .modal-content {
+      background: #FFF8F0; border-radius: 28px; max-width: 440px; width: 100%;
+      padding: 30px; text-align: center; border: 2px solid var(--rose-pink);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.25); position: relative;
+    }
+    .modal-close { position: absolute; top: 15px; right: 18px; background: none; border: none; font-size: 1.4rem; color: var(--deep-magenta); cursor: pointer; }
+
+    /* =========================================================
+       11. FOOTER CLICK NAVIGATION SYSTEM (PREV / NEXT BUTTONS)
+       ========================================================= */
+    .nav-controls-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 10px; flex-shrink: 0; margin-top: 5px;
+    }
+
+    .btn-nav-click {
+      padding: 12px 24px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--glass-border);
+      border-radius: 25px;
+      font-size: 0.85rem; font-weight: 700;
+      color: var(--deep-magenta);
+      cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 6px 18px rgba(216, 27, 96, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .btn-nav-click:hover:not(:disabled) {
+      background: #FFF;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(216, 27, 96, 0.2);
+    }
+
+    .btn-nav-click:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-nav-click.btn-next-main {
+      background: linear-gradient(135deg, #E91E63, #D81B60);
+      color: #FFF;
+      border: none;
+    }
+
+    .page-indicator {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--deep-magenta);
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 600px) {
+      header { flex-direction: column; gap: 8px; padding: 10px; }
+      .photo-spotlight-grid { grid-template-columns: 1fr; }
+      .spotlight-img-wrapper { height: 260px; }
+      .btn-nav-click { padding: 10px 16px; font-size: 0.78rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Glowing cursor canvas -->
+  <canvas id="cursor-canvas"></canvas>
+
+  <!-- Background animation elements -->
+  <div class="bg-mesh-container"><div class="bg-mesh"></div></div>
+  <div class="floating-particles-layer" id="floatingLayer"></div>
+
+  <!-- Music Pill Widget -->
+  <div class="music-widget" id="musicWidget" onclick="toggleAudio()">
+    <div class="music-disc"><i class="fa-solid fa-music"></i></div>
+    <div class="music-info">
+      <span class="music-title">Royal Romantic Melody</span>
+      <span class="music-status" id="musicStatus">Tap to Play 🎵</span>
+    </div>
+    <div class="eq-bars"><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div></div>
+  </div>
+
+  <audio id="bgAudio" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3"></audio>
+
+  <!-- LOADER INTRO -->
+  <div id="loader">
+    <div class="loader-content">
+      <div class="loader-logo">Puspa & Vishal</div>
+      <p style="color: var(--deep-magenta); font-weight:700; letter-spacing: 1px;">ROYAL 18TH CELEBRATION</p>
+      <div class="loader-bar-bg"><div class="loader-bar-fill" id="loaderFill"></div></div>
+      <div class="loader-quote" id="loaderQuote">Preparing luxury experience...</div>
+      <button class="btn-enter" id="btnEnter" onclick="enterWebsite()">ENTER EXPERIENCE ✨</button>
+    </div>
+  </div>
+
+  <!-- MAIN APP WRAPPER -->
+  <div class="app-wrapper">
+
+    <!-- HEADER TOP TABS -->
+    <header>
+      <div class="brand-logo">Puspa <i class="fa-solid fa-crown"></i> 18th</div>
+      <nav class="nav-tabs">
+        <button class="tab-btn active" onclick="goToSlide(0)">Home</button>
+        <button class="tab-btn" onclick="goToSlide(1)">Gallery</button>
+        <button class="tab-btn" onclick="goToSlide(2)">Letter</button>
+        <button class="tab-btn" onclick="goToSlide(3)">100 Reasons</button>
+        <button class="tab-btn" onclick="goToSlide(4)">Surprise</button>
+      </nav>
+    </header>
+
+    <!-- VIEW STAGE (PAGES SLIDES) -->
+    <main class="view-stage">
+
+      <!-- SLIDE 0: HERO OVERVIEW -->
+      <div class="page-slide active" id="slide0">
+        <div class="hero-card">
+          <div class="milestone-badge"><i class="fa-solid fa-gem"></i> Official Milestone Turning 18</div>
+          <h1 class="hero-title">Happy Birthday<span>Puspa ❤️</span></h1>
+          <p class="hero-subtitle">
+            To the most gorgeous queen of my world. May your 18th birthday bring you eternal love, happiness, success, and endless magic.
+          </p>
+
+          <div class="timer-boxes">
+            <div class="time-card"><span class="time-num" id="dNum">00</span><span class="time-label">Days</span></div>
+            <div class="time-card"><span class="time-num" id="hNum">00</span><span class="time-label">Hours</span></div>
+            <div class="time-card"><span class="time-num" id="mNum">00</span><span class="time-label">Mins</span></div>
+            <div class="time-card"><span class="time-num" id="sNum">00</span><span class="time-label">Secs</span></div>
+          </div>
+
+          <div class="relation-counter">
+            <i class="fa-solid fa-heart"></i>
+            <span>300+ Days Of Unconditional Love</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 1: PHOTO GALLERY -->
+      <div class="page-slide" id="slide1">
+        <div class="photo-spotlight-grid">
+          <div class="spotlight-card">
+            <div class="spotlight-img-wrapper">
+              <img src="https://i.ibb.co/W49rP5br/file-00000000f454720b82e0d45621b58a23.png" alt="Vishal & Puspa Couple">
+            </div>
+            <div class="spotlight-tag">Vishal & Puspa | Together Forever</div>
+          </div>
+
+          <div class="spotlight-card">
+            <div class="spotlight-img-wrapper">
+              <img src="https://i.ibb.co/Kp7KT67r/file-00000000c620720797c6aa70b491d272.png" alt="Puspa Queen">
+            </div>
+            <div class="spotlight-tag">Birthday Queen | 18 Years Of Grace</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: TYPEWRITER LOVE LETTER -->
+      <div class="page-slide" id="slide2">
+        <div class="section-card">
+          <div class="letter-paper">
+            <div class="letter-header">Dearest Puspa ❤️,</div>
+            <div class="letter-body" id="typewriterBody"></div><span class="typing-cursor"></span>
+            <div class="letter-signature">— Always Yours, Vishal ✨</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: 100 LOVE REASONS -->
+      <div class="page-slide" id="slide3">
+        <div class="section-card">
+          <div class="reasons-header">
+            <h2 style="font-family:'Playfair Display', serif; color: var(--deep-magenta); font-size: 1.6rem;">100 Reasons Why I Love You</h2>
+            <p style="color: var(--rose-gold); font-size: 0.8rem; margin-top: 4px;">Click any card to trigger fireworks!</p>
+          </div>
+          <div class="reasons-grid" id="reasonsGrid"></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: SURPRISE GIFT -->
+      <div class="page-slide" id="slide4">
+        <div class="section-card gift-section">
+          <h2 style="font-family:'Playfair Display', serif; color: var(--deep-magenta); font-size: 1.8rem; margin-bottom:15px;">Your Secret Birthday Surprise</h2>
+          <div class="gift-box-wrapper" onclick="openSurpriseModal()">
+            <div class="gift-box">🎁</div>
+          </div>
+          <button class="btn-action-main" onclick="triggerFireworks()">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Trigger Fireworks Blast!
+          </button>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- FOOTER CLICK SYSTEM NAVIGATION -->
+    <footer class="nav-controls-footer">
+      <button class="btn-nav-click" id="btnPrev" onclick="prevSlide()" disabled>
+        <i class="fa-solid fa-chevron-left"></i> Previous
+      </button>
+
+      <span class="page-indicator" id="pageIndicator">Chapter 1 / 5</span>
+
+      <button class="btn-nav-click btn-next-main" id="btnNext" onclick="nextSlide()">
+        Next Chapter <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </footer>
+
+  </div>
+
+  <!-- SURPRISE MODAL POPUP -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeSurpriseModal()">&times;</button>
+      <div style="font-size: 2.8rem; margin-bottom: 8px;">👑💖🎂</div>
+      <h3 style="font-family:'Playfair Display', serif; color: var(--deep-magenta); font-size: 1.6rem;">Special Birthday Wish</h3>
+      <p style="color: #444; font-size: 0.9rem; line-height: 1.6; margin: 12px 0;">
+        Puspa, turning 18 is a huge milestone! I promise to stand by your side, support your dreams, and make every single day as special as today. You are my happiness, my home, and my queen forever.
+      </p>
+      <button class="btn-action-main" onclick="closeSurpriseModal(); triggerFireworks();">Celebrate Now 🎉</button>
+    </div>
+  </div>
+
+  <script>
+    // 1. PAGE CLICK SYSTEM NAVIGATION LOGIC
+    let currentSlide = 0;
+    const totalSlides = 5;
+    const slides = document.querySelectorAll('.page-slide');
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+    const pageIndicator = document.getElementById('pageIndicator');
+
+    function updateSlide() {
+      slides.forEach((slide, idx) => {
+        if (idx === currentSlide) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      tabBtns.forEach((btn, idx) => {
+        btn.classList.toggle('active', idx === currentSlide);
+      });
+
+      btnPrev.disabled = (currentSlide === 0);
+      if (currentSlide === totalSlides - 1) {
+        btnNext.innerHTML = 'Fireworks <i class="fa-solid fa-wand-magic-sparkles"></i>';
+      } else {
+        btnNext.innerHTML = 'Next Chapter <i class="fa-solid fa-chevron-right"></i>';
+      }
+
+      pageIndicator.innerText = `Chapter ${currentSlide + 1} / ${totalSlides}`;
+
+      // Start typewriter when entering Letter slide
+      if (currentSlide === 2 && letterIdx === 0) {
+        startTypewriter();
+      }
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      updateSlide();
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateSlide();
+      } else {
+        triggerFireworks();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    // 2. LOADER
+    const quotes = ["Crafting royal magic...", "Polishing rose gold sparkles...", "Preparing your 18th milestone...", "Almost ready, Queen Puspa..."];
+    let qIdx = 0, progress = 0;
+    const loaderQuote = document.getElementById('loaderQuote');
+    const loaderFill = document.getElementById('loaderFill');
+    const btnEnter = document.getElementById('btnEnter');
+
+    const quoteInterval = setInterval(() => {
+      qIdx = (qIdx + 1) % quotes.length;
+      loaderQuote.style.opacity = '0';
+      setTimeout(() => { loaderQuote.innerText = quotes[qIdx]; loaderQuote.style.opacity = '1'; }, 300);
+    }, 1200);
+
+    const progInterval = setInterval(() => {
+      progress += 5;
+      loaderFill.style.width = progress + '%';
+      if (progress >= 100) {
+        clearInterval(progInterval); clearInterval(quoteInterval);
+        loaderQuote.innerText = "Experience is ready for you! ❤️";
+        btnEnter.classList.add('ready');
+      }
+    }, 100);
+
+    function enterWebsite() {
+      const loader = document.getElementById('loader');
+      loader.style.opacity = '0';
+      setTimeout(() => {
+        loader.style.visibility = 'hidden';
+        triggerFireworks();
+        toggleAudio(true);
+      }, 800);
+    }
+
+    // 3. FLOATING PARTICLES
+    const floatingLayer = document.getElementById('floatingLayer');
+    const floatIcons = ['💖', '❤️', '✨', '🌸', '👑', '🎂', '🤍', '⭐'];
+    setInterval(() => {
+      const p = document.createElement('div');
+      p.className = 'floating-item';
+      p.innerText = floatIcons[Math.floor(Math.random() * floatIcons.length)];
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDuration = (Math.random() * 4 + 6) + 's';
+      p.style.fontSize = (Math.random() * 1.2 + 0.8) + 'rem';
+      floatingLayer.appendChild(p);
+      setTimeout(() => p.remove(), 10000);
+    }, 450);
+
+    // 4. MUSIC CONTROLLER
+    const audio = document.getElementById('bgAudio');
+    const musicWidget = document.getElementById('musicWidget');
+    const musicStatus = document.getElementById('musicStatus');
+    let isAudioPlaying = false;
+
+    function toggleAudio(forcePlay = false) {
+      if (forcePlay || !isAudioPlaying) {
+        audio.play().then(() => {
+          isAudioPlaying = true;
+          musicWidget.classList.add('playing');
+          musicStatus.innerText = "Now Playing 🎵";
+        }).catch(e => console.log("Audio deferred"));
+      } else {
+        audio.pause();
+        isAudioPlaying = false;
+        musicWidget.classList.remove('playing');
+        musicStatus.innerText = "Paused ⏸️";
+      }
+    }
+
+    // 5. TYPEWRITER EFFECT
+    const letterText = `आज आप पूरे 18 साल की हो गई हैं! आपके इस सबसे खास और यादगार 18वें जन्मदिन की आपको ढेर सारी बधाईयाँ।\n\nमेरी ज़िंदगी में आने और इसे इतनी प्यारी खुशियों से भरने के लिए आपका बेहद शुक्रिया। ईश्वर करे कि आपकी ज़िंदगी का हर पल तरक्की, ढेर सारे प्यार, अच्छी सेहत और प्यारी सी मुस्कान से भरा रहे।\n\nआप हमेशा यूँ ही मुस्कुराती रहो, आगे बढ़ती रहो और मेरी रानी बनकर मेरे दिल पर राज करती रहो!`;
+    let letterIdx = 0;
+    function startTypewriter() {
+      const target = document.getElementById('typewriterBody');
+      target.innerText = "";
+      function type() {
+        if (letterIdx < letterText.length) {
+          target.innerText += letterText.charAt(letterIdx);
+          letterIdx++;
+          setTimeout(type, 35);
+        }
+      }
+      type();
+    }
+
+    // 6. 100 REASONS GRID GENERATOR
+    const sampleReasons = [
+      "Your beautiful smile lights up my whole world.",
+      "The way you care for me with so much purity.",
+      "How your eyes sparkle when you laugh.",
+      "Your cute angry face that I secretly adore.",
+      "You are my safest space and happiest home.",
+      "Your kindness towards everyone.",
+      "The way you say my name.",
+      "How you make 18 look so elegant.",
+      "Our unforgettable talks and memories.",
+      "Simply because you are YOU, my Queen Puspa."
+    ];
+    const reasonsGrid = document.getElementById('reasonsGrid');
+    for (let i = 1; i <= 100; i++) {
+      const card = document.createElement('div');
+      card.className = 'reason-card';
+      card.innerHTML = `<div class="reason-num">Reason #${i}</div><div class="reason-text">${sampleReasons[(i - 1) % sampleReasons.length]}</div>`;
+      card.onclick = () => triggerFireworks();
+      reasonsGrid.appendChild(card);
+    }
+
+    // 7. COUNTDOWN TIMER
+    const targetDate = new Date("Aug 8, 2026 00:00:00").getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+      if (diff <= 0) return;
+      document.getElementById('dNum').innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+      document.getElementById('hNum').innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+      document.getElementById('mNum').innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+      document.getElementById('sNum').innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+    }, 1000);
+
+    // 8. FIREWORKS
+    function triggerFireworks() {
+      const duration = 2.5 * 1000;
+      const animationEnd = Date.now() + duration;
+      const interval = setInterval(function() {
+        const timeLeft = animationEnd - Date.now();
+        if (timeLeft <= 0) return clearInterval(interval);
+        confetti({ particleCount: 40 * (timeLeft / duration), startVelocity: 30, spread: 360, origin: { x: Math.random(), y: Math.random() - 0.2 } });
+      }, 250);
+    }
+
+    function openSurpriseModal() { document.getElementById('modalOverlay').classList.add('active'); triggerFireworks(); }
+    function closeSurpriseModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+
+    // 9. GLOW CURSOR TRAIL
+    const canvas = document.getElementById('cursor-canvas');
+    const ctx = canvas.getContext('2d');
+    let points = [];
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resizeCanvas); resizeCanvas();
+    window.addEventListener('mousemove', (e) => { points.push({ x: e.clientX, y: e.clientY, alpha: 1, size: Math.random() * 8 + 4 }); });
+    function animateCursor() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < points.length; i++) {
+        const p = points[i];
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(233, 30, 99, ${p.alpha})`; ctx.fill();
+        p.alpha -= 0.025; p.size *= 0.96;
+      }
+      points = points.filter(p => p.alpha > 0);
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+  </script>
+</body>
+</html>
