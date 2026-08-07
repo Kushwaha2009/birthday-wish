@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Happy 18th Birthday My Queen | Puspa ❤️</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- External CDNs -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Glowing cursor canvas -->
+  <canvas id="cursor-canvas"></canvas>
+
+  <!-- Background animation elements -->
+  <div class="bg-mesh-container"><div class="bg-mesh"></div></div>
+  <div class="floating-particles-layer" id="floatingLayer"></div>
+
+  <!-- Music Pill Widget -->
+  <div class="music-widget" id="musicWidget" onclick="toggleAudio()">
+    <div class="music-disc"><i class="fa-solid fa-music"></i></div>
+    <div class="music-info">
+      <span class="music-title">Royal Romantic Melody</span>
+      <span class="music-status" id="musicStatus">Tap to Play 🎵</span>
+    </div>
+    <div class="eq-bars"><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div></div>
+  </div>
+
+  <audio id="bgAudio" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3"></audio>
+
+  <!-- LOADER INTRO -->
+  <div id="loader">
+    <div class="loader-content">
+      <div class="loader-logo">Puspa & Vishal</div>
+      <p style="color: var(--deep-magenta); font-weight:700; letter-spacing: 1px;">ROYAL 18TH CELEBRATION</p>
+      <div class="loader-bar-bg"><div class="loader-bar-fill" id="loaderFill"></div></div>
+      <div class="loader-quote" id="loaderQuote">Preparing luxury experience...</div>
+      <button class="btn-enter" id="btnEnter" onclick="enterWebsite()">ENTER EXPERIENCE ✨</button>
+    </div>
+  </div>
+
+  <!-- MAIN APP WRAPPER -->
+  <div class="app-wrapper">
+
+    <!-- HEADER TOP TABS -->
+    <header>
+      <div class="brand-logo">Puspa <i class="fa-solid fa-crown"></i> 18th</div>
+      <nav class="nav-tabs">
+        <button class="tab-btn active" onclick="goToSlide(0)">Home</button>
+        <button class="tab-btn" onclick="goToSlide(1)">Gallery</button>
+        <button class="tab-btn" onclick="goToSlide(2)">Letter</button>
+        <button class="tab-btn" onclick="goToSlide(3)">100 Reasons</button>
+        <button class="tab-btn" onclick="goToSlide(4)">Surprise</button>
+      </nav>
+    </header>
+
+    <!-- VIEW STAGE (PAGES SLIDES) -->
+    <main class="view-stage">
+
+      <!-- SLIDE 0: HERO OVERVIEW -->
+      <div class="page-slide active" id="slide0">
+        <div class="hero-card">
+          <div class="milestone-badge"><i class="fa-solid fa-gem"></i> Official Milestone Turning 18</div>
+          <h1 class="hero-title">Happy Birthday<span>Puspa ❤️</span></h1>
+          <p class="hero-subtitle">
+            To the most gorgeous queen of my world. May your 18th birthday bring you eternal love, happiness, success, and endless magic.
+          </p>
+
+          <div class="timer-boxes">
+            <div class="time-card"><span class="time-num" id="dNum">00</span><span class="time-label">Days</span></div>
+            <div class="time-card"><span class="time-num" id="hNum">00</span><span class="time-label">Hours</span></div>
+            <div class="time-card"><span class="time-num" id="mNum">00</span><span class="time-label">Mins</span></div>
+            <div class="time-card"><span class="time-num" id="sNum">00</span><span class="time-label">Secs</span></div>
+          </div>
+
+          <div class="relation-counter">
+            <i class="fa-solid fa-heart"></i>
+            <span>300+ Days Of Unconditional Love</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 1: PHOTO GALLERY -->
+      <div class="page-slide" id="slide1">
+        <div class="photo-spotlight-grid">
+          <div class="spotlight-card">
+            <div class="spotlight-img-wrapper">
+              <img src="https://i.ibb.co/W49rP5br/file-00000000f454720b82e0d45621b58a23.png" alt="Vishal & Puspa Couple">
+            </div>
+            <div class="spotlight-tag">Vishal & Puspa | Together Forever</div>
+          </div>
+
+          <div class="spotlight-card">
+            <div class="spotlight-img-wrapper">
+              <img src="https://i.ibb.co/Kp7KT67r/file-00000000c620720797c6aa70b491d272.png" alt="Puspa Queen">
+            </div>
+            <div class="spotlight-tag">Birthday Queen | 18 Years Of Grace</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: TYPEWRITER LOVE LETTER -->
+      <div class="page-slide" id="slide2">
+        <div class="section-card">
+          <div class="letter-paper">
+            <div class="letter-header">Dearest Puspa ❤️,</div>
+            <div class="letter-body" id="typewriterBody"></div><span class="typing-cursor"></span>
+            <div class="letter-signature">— Always Yours, Vishal ✨</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: 100 LOVE REASONS -->
+      <div class="page-slide" id="slide3">
+        <div class="section-card">
+          <div class="reasons-header">
+            <h2 style="font-family:'Playfair Display', serif; color: var(--deep-magenta); font-size: 1.6rem;">100 Reasons Why I Love You</h2>
+            <p style="color: var(--rose-gold); font-size: 0.8rem; margin-top: 4px;">Click any card to trigger fireworks!</p>
+          </div>
+          <div class="reasons-grid" id="reasonsGrid"></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: SURPRISE GIFT -->
+      <div class="page-slide" id="slide4">
+        <div class="section-card gift-section">
+          <h2 style="font-family:'Playfair Display', serif; color: var(--deep-magenta); font-size: 1.8rem; margin-bottom:15px;">Your Secret Birthday Surprise</h2>
+          <div class="gift-box-wrapper" onclick="openSurpriseModal()">
+            <div class="gift-box">🎁</div>
+          </div>
+          <button class="btn-action-main" onclick="triggerFireworks()">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Trigger Fireworks Blast!
+          </button>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- FOOTER CLICK SYSTEM NAVIGATION -->
+    <footer class="nav-controls-footer">
+      <button class="btn-nav-click" id="btnPrev" onclick="prevSlide()" disabled>
+        <i class="fa-solid fa-chevron-left"></i> Previous
+      </button>
+
+      <span class="page-indicator" id="pageIndicator">Chapter 1 / 5</span>
+
+      <button class="btn-nav-click btn-next-main" id="btnNext" onclick="nextSlide()">
+        Next Chapter <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </footer>
+
+  </div>
+
+  <!-- SURPRISE MODAL POPUP -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeSurpriseModal()">&times;</button>
+      <div style="font-size: 2.8rem; margin-bottom: 8px;">👑💖🎂</div>
+      <h3 style="font-family:'Playfair Display', serif; color: var(--deep-magenta); font-size: 1.6rem;">Special Birthday Wish</h3>
+      <p style="color: #444; font-size: 0.9rem; line-height: 1.6; margin: 12px 0;">
+        Puspa, turning 18 is a huge milestone! I promise to stand by your side, support your dreams, and make every single day as special as today. You are my happiness, my home, and my queen forever. Happy 18th Birthday! 🎉💕
+      </p>
+      <button class="btn-action-main" onclick="closeSurpriseModal(); triggerFireworks();">Celebrate Now 🎉</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
