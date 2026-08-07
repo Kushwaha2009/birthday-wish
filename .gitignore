@@ -1,0 +1,48 @@
+# OS Files
+.DS_Store
+Thumbs.db
+*.exe
+*.dll
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.sublime-project
+.sublime-workspace
+.vim/
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build
+dist/
+build/
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+.env.prod
+
+# Temporary files
+*.tmp
+*.bak
+.cache/
+*.temp
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+.DS_Store
+desktop.ini
+.prettierrc
+.editorconfig
